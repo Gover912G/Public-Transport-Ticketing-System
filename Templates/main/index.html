@@ -1,0 +1,156 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block head %}
+    <!-- Additional head content specific to the child template -->
+    <!-- <link rel="stylesheet" href="{% static 'css/Ticket_booking.css' %}" /> -->
+
+{% endblock %}
+
+{% block main %}
+
+
+<section class="hero">
+    <div class="context">
+      <h1>Online Tickets</h1>
+      <p>
+        Unlock Your Next Adventure with Ease! Seamless Online Ticketing for
+        Memorable Experiences. Your Journey Begins Here.
+      </p>
+    </div>
+    <div class="img">
+      <img
+        src="{% static 'images/hero4-removebg-preview.png' %}"
+        width="600px"
+        height="400px"
+        alt=""
+      />
+    </div>
+  </section>
+  <ul class="hero-btn">
+    <li><a href="{% url 'tickets:book_ticket' %}">Buy Tickets</a></li>
+    <li><a href="#">More >></a></li>
+  </ul>
+</div>
+
+<!-- About us Section -->
+<!-- <div class="section-about">
+    <div class="about-img">
+        <img src="./assets/images/matatu1.jpeg" width="300px" height="200px" alt="">
+        <img src="./assets/images/matatu2.jpeg" width="300px" height="200px" alt="">
+    </div>
+    <div class="about">
+        <h1>About Us</h1>
+        <p>"Empowering Your Experiences, One Ticket at a Time.
+            Elevate Your Adventures with Our Seamless Online Ticketing System.
+            Discover, Book, and Create Unforgettable Memories effortlessly."</p>
+    </div>
+</div> -->
+
+<div class="about-section">
+  <div class="about-container">
+    <div class="about-content-section">
+      <div class="title">
+        <h1>About Us</h1>
+      </div>
+      <div class="content">
+        <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h3>
+        <p>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+          Blanditiis consectetur maxime tenetur totam ut? Eius sint dolores
+          labore! Nihil laborum ipsa consequatur explicabo asperiores
+          voluptatem harum ducimus, nobis repellendus? Optio.
+        </p>
+        <div class="button">
+          <a href="#">Read More >></a>
+        </div>
+      </div>
+      <div class="social">
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+      </div>
+    </div>
+    <div class="imge-section">
+      <img src="{% static 'images/matatu1.jpeg' %}" alt="matatu image" />
+      <img src="{% static 'images/matatu2.jpeg' %}" alt="" />
+    </div>
+  </div>
+</div>
+
+<!-- Testimonials -->
+<div class="testi-container">
+  <div class="testi-contents-wrapper">
+    <div class="testi-header">
+      <h1>Testimonials</h1>
+    </div>
+    <div class="testRow">
+      <div class="testItem active">
+        <img src="{% static 'images/testi1.jpg' %}" alt="Testimonials image" />
+        <h3>Paul Ng'ang'a</h3>
+        <h4>Nairobi Ke</h4>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Recusandae eveniet voluptate, quos in nemo reprehenderit rerum vel
+          velit id pariatur molestiae aperiam atque eaque suscipit delectus,
+          facere sunt earum voluptas.
+        </p>
+      </div>
+
+      <div class="testItem">
+        <img src="{% static 'images/testi2.jpg' %}" alt="Testimonials image" />
+        <h3>Regina Mumbi</h3>
+        <h4>Nairobi Ke</h4>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Recusandae eveniet voluptate, quos in nemo reprehenderit rerum vel
+          velit id pariatur molestiae aperiam atque eaque suscipit delectus,
+          facere sunt earum voluptas.
+        </p>
+      </div>
+
+      <div class="testItem">
+        <img src="{% static 'images/testi3.jpg' %}" alt="Testimonials image" />
+        <h3>Agnes Wesonga</h3>
+        <h4>Nairobi Ke</h4>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Recusandae eveniet voluptate, quos in nemo reprehenderit rerum vel
+          velit id pariatur molestiae aperiam atque eaque suscipit delectus,
+          facere sunt earum voluptas.
+        </p>
+      </div>
+      <div class="testItem">
+        <img src="{% static 'images/testi4.jpg' %}" alt="Testimonials image" />
+        <h3>Henry Wesonga</h3>
+        <h4>Nairobi Ke</h4>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Recusandae eveniet voluptate, quos in nemo reprehenderit rerum vel
+          velit id pariatur molestiae aperiam atque eaque suscipit delectus,
+          facere sunt earum voluptas.
+        </p>
+      </div>
+      <div class="testItem">
+        <img src="{% static 'images/testi5.jpg' %}" alt="Testimonials image" />
+        <h3>Geoffrey Gateru</h3>
+        <h4>Nairobi Ke</h4>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Recusandae eveniet voluptate, quos in nemo reprehenderit rerum vel
+          velit id pariatur molestiae aperiam atque eaque suscipit delectus,
+          facere sunt earum voluptas.
+        </p>
+      </div>
+    </div>
+    <div class="indicators">
+      <div class="dot active" attr="0" onclick="switchText(this)"></div>
+      <div class="dot" attr="1" onclick="switchText(this)"></div>
+      <div class="dot" attr="2" onclick="switchText(this)"></div>
+      <div class="dot" attr="3" onclick="switchText(this)"></div>
+      <div class="dot" attr="4" onclick="switchText(this)"></div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock main %}

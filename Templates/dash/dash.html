@@ -1,0 +1,200 @@
+{% extends 'dash/master.html' %}
+{% block head %}
+<title>Dashboard</title>
+
+{% endblock %}
+
+{% block content %}
+        <div class="insights">
+          <div class="on-board">
+            <span class="material-symbols-outlined"> groups </span>
+            <div class="middle">
+              <div class="left">
+                <h3>Onboard Passangers</h3>
+                <h1>20</h1>
+              </div>
+              <div class="progress">
+                <svg>
+                  <circle cx="38" cy="38" r="36"></circle>
+                </svg>
+                <div class="number">
+                  <p>81%</p>
+                </div>
+              </div>
+            </div>
+            <small class="text-muted">Last 24 hours</small>
+          </div>
+          <!-- End of onboard -->
+
+          <div class="trips">
+            <span class="material-symbols-outlined"> all_inclusive </span>
+            <div class="middle">
+              <div class="left">
+                <h3>Total Trips</h3>
+                <h1>15</h1>
+              </div>
+              <div class="progress">
+                <svg>
+                  <circle cx="38" cy="38" r="36"></circle>
+                </svg>
+                <div class="number">
+                  <p>81%</p>
+                </div>
+              </div>
+            </div>
+            <small class="text-muted">Last 24 hours</small>
+          </div>
+
+          <div class="amount">
+            <span class="material-symbols-outlined"> groups </span>
+            <div class="middle">
+              <div class="left">
+                <h3>Total Amount</h3>
+                <h1>ksh5600</h1>
+              </div>
+              <div class="progress">
+                <svg>
+                  <circle cx="38" cy="38" r="36"></circle>
+                </svg>
+                <div class="number">
+                  <p>81%</p>
+                </div>
+              </div>
+            </div>
+            <small class="text-muted">Last 24 hours</small>
+          </div>
+        </div>
+
+        <!-- END OF INSIGHT SECTION -->
+
+        <div class="all-tickets">
+          <h2>Recent Tickets</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Ticket Number</th>
+                <th>Start</th>
+                <th>Stop</th>
+                <th>Amount</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Governor</td>
+                <td>123-456-789</td>
+                <td>Meru</td>
+                <td>Maua</td>
+                <td>ksh250</td>
+                <td class="primary"><a href="#">Details</a></td>
+              </tr>
+              <tr>
+                <td>Governor</td>
+                <td>123-456-789</td>
+                <td>Meru</td>
+                <td>Maua</td>
+                <td>ksh250</td>
+                <td class="primary"><a href="#">Details</a></td>
+              </tr>
+              <tr>
+                <td>Governor</td>
+                <td>123-456-789</td>
+                <td>Meru</td>
+                <td>Maua</td>
+                <td>ksh250</td>
+                <td class="primary"><a href="#">Details</a></td>
+              </tr>
+              <tr>
+                <td>Governor</td>
+                <td>123-456-789</td>
+                <td>Meru</td>
+                <td>Maua</td>
+                <td>ksh250</td>
+                <td class="primary"><a href="#">Details</a></td>
+              </tr>
+              <tr>
+                <td>Governor</td>
+                <td>123-456-789</td>
+                <td>Meru</td>
+                <td>Maua</td>
+                <td>ksh250</td>
+                <td class="primary"><a href="#">Details</a></td>
+              </tr>
+            </tbody>
+          </table>
+          <a href="#">Show all</a>
+        </div>
+      </main>
+
+      <!-- END OF MAIN -->
+
+      <div class="right">
+        <div class="top">
+          <button id="menu-btn">
+            <span class="material-symbols-outlined"> menu </span>
+          </button>
+          <div class="theme-toggler">
+            <span class="material-symbols-outlined active"> light_mode </span
+            ><span class="material-symbols-outlined"> dark_mode </span>
+          </div>
+          <div class="profile">
+            <div class="info">
+              <p>Hey <b>Governor</b></p>
+              <small class="text-muted">Admin</small>
+            </div>
+            <div class="profile-photo">
+              <img src="../assets/images/testi1.jpg" alt="">
+            </div>
+          </div>
+        </div>
+
+
+        <div class="recent-feedbacks">
+          <h2>Feedbacks</h2>
+          <div class="feedbacks">
+            <div class="feedback">
+              <div class="profile-photo">
+                <img src="../assets/images/testi2.jpg" alt="">
+              </div>
+              <div class="message">
+                <p><b>Paul Ng'ang'a</b>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, deserunt
+                </p>
+                <small class="text-muted">2 minutes ago</small>
+              </div>
+            </div>
+            <div class="feedback">
+              <div class="profile-photo">
+                <img src="../assets/images/testi3.jpg" alt="">
+              </div>
+              <div class="message">
+                <p><b>Paul</b>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, deserunt
+                </p>
+                <small class="text-muted">2 minutes ago</small>
+              </div>
+            </div>
+            <div class="feedback">
+              <div class="profile-photo">
+                <img src="../assets/images/testi4.jpg" alt="">
+              </div>
+              <div class="message">
+                <p><b>Ng'ang'a</b>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, deserunt
+                </p>
+                <small class="text-muted">2 minutes ago</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="recent-trips">
+          <div class="item add-trip">
+            <span class="material-symbols-outlined">
+              add
+              </span>
+              <h3>Add Trip</h3>
+          </div>
+        </div>
+      </div>
+{% endblock %}

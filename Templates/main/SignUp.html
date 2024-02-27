@@ -1,0 +1,65 @@
+{% extends 'main/base.html' %} {% load static %} {% load widget_tweaks %} {%
+{% block head %}
+<!-- Additional head content specific to the child template -->
+<!-- <link rel="stylesheet" href="{% static 'css/Ticket_booking.css' %}" />
+
+    <script defer src="{% static 'js/validation.js' %}"></script> -->
+
+{% endblock %} {% block main %}
+
+<div class="reg_container">
+  {% if form.errors %}
+  <div class="alert alert-danger">
+    <strong>Error!</strong> Please correct the following errors:
+    <ul>
+      {% for field, errors in form.errors.items %} {% for error in errors %}
+      <li>{{ field }}: {{ error }}</li>
+      {% endfor %} {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    <h1>Registration</h1>
+    <div class="input-control">
+      <label for="email">Email</label>
+      {% render_field form.email %}
+      <!-- <input type="text" id="email" name="email" /> -->
+      <div class="error"></div>
+    </div>
+
+    <div class="input-control">
+      <label for="username">Username</label>
+      {% render_field form.username %}
+      <!-- <input type="text" id="username" name="username" /> -->
+      <div class="error"></div>
+    </div>
+
+    <!-- <div class="input-control">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" />
+          <div class="error"></div>
+        </div> -->
+    <div class="input-control">
+      <label for="password">Password</label>
+      <!-- <input type="password" id="password" name="password" /> -->
+      {% render_field form.password1 %}
+      <div class="error"></div>
+    </div>
+    <div class="input-control">
+      <label for="password2">Confirm Password</label>
+      {% render_field form.password2 %}
+
+      <!-- <input type="password" id="password2" name="password2" /> -->
+      <div class="error"></div>
+    </div>
+    <button>Sign Up</button>
+  </form>
+  <!-- <div class="signup-link">
+        don't have an account?<a href="SignUp.html">Sign up</a>
+      </div> -->
+</div>
+
+<!-- <script src="{% static 'js/test.js' %}"></script> -->
+{% endblock %}

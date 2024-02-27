@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Dashboard{% endblock %}</title>
+    <!-- css -->
+    <link rel="stylesheet" href="{% static 'css/dash.css' %}" />
+
+    <!-- material icons link -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+
+    />
+    {% block head %}{% endblock %}
+
+  </head>
+  <body>
+    <div class="container">
+      <aside>
+        <div class="top">
+          <div class="logo">
+            <!-- <img src="../assets/images/favicon-32x32.png" alt="" /> -->
+          <img src="{% static 'images/favicon-32x32.png' %}" alt="logo" />
+            <h2>ondaa</h2>
+          </div>
+          <div class="close" id="close-btn">
+            <span class="material-symbols-outlined"> close </span>
+          </div>
+        </div>
+        <div class="sidebar">
+          <a href="{% url 'dashboard:dash' %}">
+            <span class="material-symbols-outlined"> grid_view </span>
+            <h3>Dashboard</h3>
+          </a>
+          <a href="{% url 'dashboard:tickets' %}" class="active">
+            <span class="material-symbols-outlined"> groups </span>
+            <h3>All Tickets</h3>
+          </a>
+          <a href="#">
+            <span class="material-symbols-outlined"> qr_code_scanner </span>
+            <h3>Scan Ticket</h3>
+          </a>
+          <a href="#">
+            <span class="material-symbols-outlined"> route </span>
+            <h3>Routes</h3>
+          </a>
+          <a href="#">
+            <span class="material-symbols-outlined"> settings </span>
+            <h3>Settings</h3>
+          </a>
+          <a href="{% url 'main:home' %}">
+            <span class="material-symbols-outlined"> logout </span>
+            <h3>Logout</h3>
+          </a>
+        </div>
+      </aside>
+
+      <!-- END OF SIDEBAR -->
+      <main>
+        <h1>Dashboard</h1>
+        <div class="date">
+          <input type="date" />
+        </div>
+
+        {% block content %}
+
+        {% endblock %}
+        
+      </main>
+        
+
+      
+        
+    <div class="right">
+      <div class="top">
+        <button id="menu-btn">
+          <span class="material-symbols-outlined"> menu </span>
+        </button>
+        <div class="theme-toggler">
+          <span class="material-symbols-outlined active"> light_mode </span
+          ><span class="material-symbols-outlined"> dark_mode </span>
+        </div>
+        <div class="profile">
+          <div class="info">
+            <p>Hey <b>Governor</b></p>
+            <small class="text-muted">Admin</small>
+          </div>
+          <div class="profile-photo">
+            <img src="{% static 'images/testi1.jpg' %}" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static 'js/dash.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+
+*,
+::before,
+::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    margin: 0;
+    scroll-behavior: smooth;
+    background-color: rgb(228, 216, 216);;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    /* background-image: url(./assets/images/matatu4.jpeg); */
+    /* background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover; */
+}
+
+.ticket{
+    max-width: 700px;
+    min-height: 150vh;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #aebde9;
+    /* background: transparent; */
+    border-radius: 5px;
+    font-weight: 500;
+    box-shadow: inset -5px 5px 5px rgb(199, 233, 6);
+        
+}
