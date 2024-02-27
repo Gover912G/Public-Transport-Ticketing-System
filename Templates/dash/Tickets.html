@@ -21,14 +21,16 @@
               </tr>
             </thead>
             <tbody>
+              {% for ticket in ticks %}
               <tr>
-                <td>Governor</td>
-                <td>123-456-789</td>
-                <td>Meru</td>
-                <td>Maua</td>
-                <td>ksh250</td>
-                <td class="primary"><a href="#">Details</a></td>
+                  <td>{{ ticket.username }}</td>
+                  <td>{{ ticket.ticket_number }}</td>
+                  <td>{{tickets.start_point}}</td>
+                  <td>Maua</td>
+                  <td>ksh250</td>
+                  <td class="primary"><a href="#">Details</a></td>
               </tr>
+              {% endfor %}
               <tr>
                 <td>Governor</td>
                 <td>123-456-789</td>

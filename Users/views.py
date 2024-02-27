@@ -2,8 +2,6 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from Users.form import PassengerRegistrationForm
 from django.contrib.auth import authenticate, login, logout
-# Create your views here.
-
 
 # Register a passenger
 
@@ -51,4 +49,4 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     messages.info(request, 'Logout successful....Login to continue')
-    return redirect('user:login')
+    return redirect('main:home')

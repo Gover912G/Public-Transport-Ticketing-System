@@ -35,7 +35,7 @@
             <span class="material-symbols-outlined"> grid_view </span>
             <h3>Dashboard</h3>
           </a>
-          <a href="{% url 'dashboard:tickets' %}" class="active">
+          <a href="{% url 'tickets:All_tickets' %}" class="active">
             <span class="material-symbols-outlined"> groups </span>
             <h3>All Tickets</h3>
           </a>
@@ -57,7 +57,14 @@
           </a>
         </div>
       </aside>
-
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-{{message.tags}} mx-auto" role="alert">
+        {{message}}
+      </div>
+      {% endfor %}
+      {% endif %}
+  
       <!-- END OF SIDEBAR -->
       <main>
         <h1>Dashboard</h1>
@@ -85,7 +92,7 @@
         </div>
         <div class="profile">
           <div class="info">
-            <p>Hey <b>Governor</b></p>
+            <p>Hey <b>{{request.user.username}}</b></p>
             <small class="text-muted">Admin</small>
           </div>
           <div class="profile-photo">

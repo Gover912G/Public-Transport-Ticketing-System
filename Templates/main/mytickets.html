@@ -14,20 +14,20 @@
           <div class="card">
             <div class="card-body ticket">
               <h5 class="card-title">Ticket</h5>
-              <p class="card-text"><b>Ticket Number: </b>123-456-789</p>
+              <p class="card-text"><b>Ticket Number: </b>{{tickets.ticket_number}}</p>
 
               <div class="row">
                 <div class="col">
-                  <p><b>From: </b>Meru</p>
+                  <p><b>From: </b>{{tickets.start_point}}</p>
                 </div>
-                <div class="col"><b>To: </b>Maua</div>
+                <div class="col"><b>To: </b>{{tickets.stop_point}}</div>
               </div>
 
               <div class="row">
                 <div class="col">
-                  <p><b>Created on: </b>13-02-24</p>
+                  <p><b>Created on: </b>{{tickets.date_created}}</p>
                 </div>
-                <div class="col"><b>Assigned to: </b>Paul Ngigi</div>
+                <div class="col"><b>Assigned to: </b>{{tickets.username}}</div>
               </div>
 
               <div class="row">
