@@ -1,0 +1,62 @@
+<li>
+              <a href="{% url 'tickets:mytickets'  %}"
+                >Mytickets</a
+              >
+            </li>
+
+            
+          <!-- <input
+            type="text"
+            class="form-control"
+            id="location"
+          /> -->
+
+            <!-- <div> -->
+          
+          <!-- <select
+            class="form-select form-select-lg mb-3"
+            aria-label="Large select example"
+            name="route" id="route"
+          >
+            <option selected>Choose a Route:</option>
+            <option value="Meru-maua"></option>Meru to Maua </option>
+            <option value="2">Meru to Maua</option>
+            <option value="3">Meru to Maua</option>
+            <option value="3">Meru to Maua</option>
+            <option value="3">Meru to Maua</option>
+            <option value="3">Meru to Maua</option>
+          </select>
+        </div> -->
+
+
+         <!-- <div class="col-12">
+          <label for="datetime" class="form-label">Time of travel</label>
+          <input
+            type="datetime-local"
+            class="form-control"
+            id="datetime"
+            
+          />
+        </div> -->
+        
+<!--         
+        <div class="col-md-6">
+          <label for="amount" class="form-label">Amount to pay</label>
+          <input type="number" class="form-control" id="amount" />
+        </div>
+        <div class="col-md-4">
+          <label for="Paymethod" class="form-label">Payment Method</label>
+          <select id="Paymethod" class="form-select">
+            <option selected>Mpesa</option>
+            <option>Mpesa</option>
+          </select>
+        </div> -->
+        
+        <!-- <div class="col-12">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="gridCheck" />
+            <label class="form-check-label" for="gridCheck">
+              Check me out
+            </label>
+          </div>
+        </div> -->

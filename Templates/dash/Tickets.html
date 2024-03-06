@@ -23,7 +23,7 @@
             <tbody>
               {% for ticket in ticks %}
               <tr>
-                  <td>{{ ticket.username }}</td>
+                  <td>{{ request.user.username }}</td>
                   <td>{{ ticket.ticket_number }}</td>
                   <td>{{tickets.start_point}}</td>
                   <td>Maua</td>

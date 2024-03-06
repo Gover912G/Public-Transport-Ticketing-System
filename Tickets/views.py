@@ -19,6 +19,13 @@ def ticket_details(request, pk):
     return render(request, './main/mytickets.html', context)
 
 
+
+@login_required
+def my_tickets(request):
+    tickets = Ticket.objects.filter(created_by=request.user)
+    context = {'tickets': tickets}
+    return render(request, './main/mytickets.html', context)
+
 @login_required
 # booking a ticket
 def book_ticket(request):

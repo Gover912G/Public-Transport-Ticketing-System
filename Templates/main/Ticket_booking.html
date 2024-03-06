@@ -3,7 +3,6 @@
 {% load widget_tweaks %}
 
 {% block head %}
-    <!-- Additional head content specific to the child template -->
     <link rel="stylesheet" href="{% static 'css/Ticket_booking.css' %}" />
 
 {% endblock %}
@@ -13,80 +12,28 @@
 
     <section class="ticket">
       <h1>Ticket Booking</h1>
+        <!-- <form class="row g-3" method="post" action="{% url 'tickets:book_ticket' %}"> -->
       <form class="row g-3">
+
         {% csrf_token %}
         <div class="col-12">
           <label for="location" class="form-label">Route</label>
           {% render_field form.route class="form-control" id="start" %}
 
-          <!-- <input
-            type="text"
-            class="form-control"
-            id="location"
-          /> -->
-          </div>
-        <!-- <div> -->
-          
-          <!-- <select
-            class="form-select form-select-lg mb-3"
-            aria-label="Large select example"
-            name="route" id="route"
-          >
-            <option selected>Choose a Route:</option>
-            <option value="Meru-maua"></option>Meru to Maua </option>
-            <option value="2">Meru to Maua</option>
-            <option value="3">Meru to Maua</option>
-            <option value="3">Meru to Maua</option>
-            <option value="3">Meru to Maua</option>
-            <option value="3">Meru to Maua</option>
-          </select>
-        </div> -->
+        </div>
 
         <div class="col-md-6">
           <label for="start" class="form-label">From</label>
           {% render_field form.start_point class="form-control" id="start" %}
-
-          <!-- <input type="text" class="form-control" id="start" /> -->
         </div>
+
         <div class="col-md-6">
           <label for="desti" class="form-label">To</label>
           {% render_field form.stop_point class="form-control" id="desti" %}
-          <!-- <input type="text" class="form-control" id="desti" /> -->
         </div>
-        <!-- <div class="col-12">
-          <label for="datetime" class="form-label">Time of travel</label>
-          <input
-            type="datetime-local"
-            class="form-control"
-            id="datetime"
-            
-          />
-        </div> -->
-        
-<!--         
-        <div class="col-md-6">
-          <label for="amount" class="form-label">Amount to pay</label>
-          <input type="number" class="form-control" id="amount" />
-        </div>
-        <div class="col-md-4">
-          <label for="Paymethod" class="form-label">Payment Method</label>
-          <select id="Paymethod" class="form-select">
-            <option selected>Mpesa</option>
-            <option>Mpesa</option>
-          </select>
-        </div> -->
-        
-        <!-- <div class="col-12">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="gridCheck" />
-            <label class="form-check-label" for="gridCheck">
-              Check me out
-            </label>
-          </div>
-        </div> -->
+       
         <div class="col-12">
           <button  class="btn btn-primary">Proceed to payment</button>
-          <!-- <a href="#"><button type="submit" class="btn btn-primary">Proceed to payment</button></a>        </div> -->
       </form>
     </section>
 {% endblock %}
