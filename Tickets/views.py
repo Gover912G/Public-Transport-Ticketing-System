@@ -66,24 +66,28 @@ def book_ticket(request):
 # booking a ticket
 def update_ticket(request, pk):
     ticket = Ticket.objects.get(pk=pk)
-    if request.method =='POST':
-        form = UpdateTicketForm(request.POST, instance = ticket)
-        if form.is_valid():
-            form.save()
+    if not ticket.is_resolved:
+        if request.method =='POST':
+            form = UpdateTicketForm(request.POST, instance = ticket)
+            if form.is_valid():
+                form.save()
 
-            messages.info(request, 'Ticket updated successfully.')
-            return redirect('tickets:mytickets')
+                messages.info(request, 'Ticket updated successfully.')
+                return redirect('tickets:mytickets')
+            else:
+                messages.warning(request, 'Something went wrong')
+                # return redirect('bookTicket')
+            
         else:
-            messages.warning(request, 'Something went wrong')
-            # return redirect('bookTicket')
-        
+            form = UpdateTicketForm(instance=ticket)
+            context = {
+                'nav':'tickets',
+                'form':form
+                }
+            return render(request, './main/Ticket_updating.html', context)
     else:
-        form = UpdateTicketForm(instance=ticket)
-        context = {
-            'nav':'tickets',
-            'form':form
-            }
-        return render(request, './main/Ticket_updating.html', context)
+        messages.warning(request, "Ticket cannot be changed")
+        return redirect('main:home')
     
 #view all createdtickets
 
@@ -140,4 +144,4 @@ def workspace(request):
 def All_closed_tickets(request):
     tickets = Ticket.objects.filter(created_by= request.user, is_resolved=True)
     context = {'tickets':'tickets'}
-    return render(request, 'closed_tickets.html', context)
+    return render(request, 'dash/closed_tickets.html', context)

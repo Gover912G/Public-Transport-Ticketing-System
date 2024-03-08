@@ -1,0 +1,79 @@
+{% extends 'dash/master.html' %}
+<!-- {% load static %} -->
+{% block head %}
+<title>{% block title %}Tickets{% endblock %}</title>
+
+{% endblock %} {% block content %}
+
+<div class="all-tickets">
+  <h2>Closed Tickets</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Ticket Number</th>
+        <th>Start</th>
+        <th>Stop</th>
+        <th>Created By</th>
+        <th>created on</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ticket in tickets %}
+      <tr>
+        <td>{{ ticket.created_by }}</td>
+        <td>{{ ticket.ticket_number }}</td>
+        <td>{{ticket.start_point}}</td>
+        <td>{{ticket.stop_point}}</td>
+        <td>{{ticket.created_by}}</td>
+        <td>{{ticket.date_created}}</td>
+        {% if ticket.ticket_status == 'Active' %}
+        <td>
+          <span
+            style="
+              background-color: rgb(164, 247, 164);
+              padding: 5px;
+              color: #fff;
+              border-radius: 5px;
+            "
+            >Active</span
+          >
+        </td>
+        {% elif ticket.ticket_status == 'Pending' %}
+        <td>
+          <span
+            class="badge bg-warning"
+            style="
+              background-color: #dbca12;
+              padding: 5px;
+              color: #fff;
+              border-radius: 5px;
+            "
+            >Pending</span
+          >
+        </td>
+        {% elif ticket.ticket_status == 'Completed' %}
+        <td>
+          <span
+            class="badge bg-primary"
+            style="
+              background-color: #5a88d1;
+              padding: 5px;
+              color: #fff;
+              border-radius: 5px;
+            "
+            >Completed</span
+          >
+        </td>
+        {% endif %}
+        <td class="primary">
+          <a href="#">Details</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
