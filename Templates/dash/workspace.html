@@ -6,7 +6,7 @@
 {% endblock %} {% block content %}
 
 <div class="all-tickets">
-  <h2>All Tickets</h2>
+  <h2>WorkSpace</h2>
   <table>
     <thead>
       <tr>
@@ -14,6 +14,7 @@
         <th>Ticket Number</th>
         <th>Start</th>
         <th>Stop</th>
+        <th>Created By</th>
         <th>created on</th>
         <th>Status</th>
         <th></th>
@@ -26,6 +27,7 @@
         <td>{{ ticket.ticket_number }}</td>
         <td>{{ticket.start_point}}</td>
         <td>{{ticket.stop_point}}</td>
+        <td>{{ticket.created_by}}</td>
         <td>{{ticket.date_created}}</td>
         {% if ticket.ticket_status == 'Active' %}
         <td>
@@ -73,9 +75,5 @@
       {% endfor %}
     </tbody>
   </table>
-  <!-- <a href="#">Show all</a> -->
-
-  <!-- END OF MAIN -->
 </div>
-
-  {% endblock %}
+{% endblock %}

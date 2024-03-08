@@ -1,3 +1,4 @@
+from django.utils import timezone
 import datetime
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -96,22 +97,22 @@ def All_tickets(request):
 
 # All Tickets that have been booked by customers to be viewed by admin
 def Booked_tickets(request):
-    tickets = Ticket.objects.filter(ticket_status=Pending)
-    context = {'tickets':'tickets'}
+    tickets = Ticket.objects.filter(ticket_status='Pending')
+    context = {'tickets':tickets}
 
-    return render(request, 'dash/booked_tickets.html', context)
+    return render(request, './dash/booked_tickets.html', context)
 
 # view for accepting the ticket(scan)
 def Accept_ticket(request,pk):
     ticket = Ticket.objects.get(pk=pk)
-    ticket.created_by = request.user
+    ticket.accepted_by = request.user
     ticket.ticket_status = 'Active'
     ticket.accepted_date = datetime.datetime.now()
     ticket.save()
     
 
     messages.info(request, 'Ticket accepted,')
-    return redirect('dash/accept_ticket.html')
+    return redirect('tickets:workspace')
 
 
 
@@ -130,7 +131,7 @@ def Close_ticket(request,pk):
 # tickets that a conductor has received but not yet resolved
 def workspace(request):
     tickets = Ticket.objects.filter(accepted_by=request.user, is_resolved=False)
-    context = {'tickets':'tickets'}
+    context = {'tickets':tickets}
 
     return render(request, 'dash/workspace.html', context)
 
