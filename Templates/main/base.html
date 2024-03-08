@@ -63,18 +63,37 @@
             <li><a href="{% url 'main:home' %}">Home</a></li>
             <li><a href="#">Abouts</a></li>
             <li><a href="#">Contacts</a></li>
+            <!-- <li>
+              <a href="{% url 'tickets:mytickets'  %}"
+                >Mytickets</a
+              >
+            </li> -->
+            <div class="dropdown">
+              <a class="btn btn-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Tickets
+              </a>
             
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'tickets:book_ticket' %}">Buy Tickets</a></li>
+                <li><a class="dropdown-item" href="{% url 'tickets:All_tickets'  %}">My Tickets</a></li>
+              </ul>
+            </div>
 
+            
+            {% if request.user.is_conductor or request.user.superuser %}
             <li><a href="{% url 'dashboard:dash' %}">Dashboard</a></li>
+            {% endif %}
           </ul>
           <ul class="nav-btn">
-            <li><a href="{% url 'tickets:book_ticket' %}">Buy Tickets</a></li>
+            <!-- <li><a href="{% url 'tickets:book_ticket' %}">Buy Tickets</a></li> -->
             <li><a href="{% url 'user:signin' %}">SignUp</a></li>
             <li><a href="{% url 'user:login' %}">Login</a></li>
             <li><a href="{% url 'user:logout' %}">Logout</a></li>
           </ul>
         </nav>
       </header>
+      <p>{{request.user}}</p>
+
     </div>
 
     {% if messages %} {% for message in messages %}

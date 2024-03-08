@@ -316,6 +316,7 @@ main .all-tickets table{
     box-shadow: 5px 5px;
 
 }
+
 main table tbody td{
     height: 2.8rem;
     border-radius: 1px solid var(--primary-color);

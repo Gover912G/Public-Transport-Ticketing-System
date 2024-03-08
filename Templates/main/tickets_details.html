@@ -1,0 +1,110 @@
+{% extends 'main/base.html' %} {% load static %} {% block head %}
+<!-- Additional head content specific to the child template -->
+<!-- <link rel="stylesheet" href="{% static 'css/Ticket_booking.css' %}" /> -->
+
+{% endblock %} {% block main %}
+
+<section class="ticket">
+  <div class="row">
+    <div class="col-sm-6 mb-3 mb-sm-0">
+      <div class="card">
+        <div class="card-body ticket">
+          <h5 class="card-title">Ticket</h5>
+
+          <p class="card-text">
+            <b>Ticket Number: </b>{{ ticket.ticket_number }}
+          </p>
+
+          <div class="row">
+            <div class="col">
+              <p><b>From: </b>{{ticket.start_point}}</p>
+            </div>
+            <div class="col"><b>To: </b>{{ticket.stop_point}}</div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <p><b>Created on: </b>{{ticket.date_created}}</p>
+            </div>
+            <div class="col"><b>Created By: </b>{{ ticket.created_by }}</div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <p>
+                <b>Status: </b>{% if ticket.ticket_status == 'Active' %}
+                <td><span class="badge bg-success">Active</span></td>
+                {% elif ticket.ticket_status == 'Pending' %}
+                <td><span class="badge bg-warning">Pending</span></td>
+                {% elif ticket.ticket_status == 'Completed' %}
+                <td><span class="badge bg-primary">Completed</span></td>
+                {% endif %}
+              </p>
+            </div>
+            <div class="col"><b>Received by: </b>{{ ticket.accepted_by}}</div>
+          </div>
+
+          <div id="qrcode"></div>
+
+          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h2>My Tickets</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Ticket Number</th>
+                <th scope="col">Status</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for ticket in tickets_per_user %}
+              <tr>
+                <td><small>{{ ticket.ticket_number }}</small></td>
+              
+                {% if ticket.ticket_status == 'Active' %}
+                <td><span class="badge bg-success">Active</span></td>
+                {% elif ticket.ticket_status == 'Pending' %}
+                <td><span class="badge bg-warning">Pending</span></td>
+                {% elif ticket.ticket_status == 'Completed' %}
+                <td><span class="badge bg-primary">Completed</span></td>
+                {% endif %}
+                <td class="primary"><a href="{% url 'tickets:ticket_details' ticket.pk %}">Details</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+<script>
+  // Details to be encoded in the QR code
+  var ticketDetails = {
+    Username: "Paul Ngigi",
+    From: "Meru Town",
+    To: "Maua",
+    // departureTime: "12:00 PM",
+  };
+
+  // Convert details to a JSON string
+  var data = JSON.stringify(ticketDetails);
+
+  // Create an instance of QRCode
+  var qrcode = new QRCode(document.getElementById("qrcode"), {
+    width: 150, // Width of the QR code
+    height: 150, // Height of the QR code
+  });
+
+  // Generate the QR code with the encoded details
+  qrcode.makeCode(data);
+</script>
+{% endblock %}

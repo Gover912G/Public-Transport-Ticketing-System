@@ -1,0 +1,48 @@
+{% extends 'main/base.html' %} {% load static %} {% block head %}
+<!-- Additional head content specific to the child template -->
+<!-- <link rel="stylesheet" href="{% static 'css/Ticket_booking.css' %}" /> -->
+
+{% endblock %} {% block main %}
+<section class="ticket">
+<table class="table">
+    <thead>
+      <tr>
+        <!-- <th scope="col">#</th> -->
+        <!-- <th scope="col">Username</th> -->
+        <th scope="col">Ticket Number</th>
+        <th scope="col">Start</th>
+        <th scope="col">Stop</th>
+        <th scope="col">Created on</th>
+        <th scope="col">Status</th>
+        <!-- <th scope="col">Start</th> -->
+      </tr>
+    </thead>
+    <tbody>
+        {% for ticket in tickets %}
+      <tr>
+        <!-- <th scope="row">1</th> -->
+        <!-- <td>{{ ticket.created_by }}</td> -->
+        <td><small>{{ ticket.ticket_number }}</small></td>
+        <td>{{ ticket.start_point }}</td>
+        <td>{{ ticket.stop_point }}</td>
+        <td>{{ ticket.date_created }}</td>
+        {% if ticket.ticket_status == 'Active' %}
+                <td><span class="badge bg-success">Active</span></td>
+                {% elif ticket.ticket_status == 'Pending' %}
+                <td><span class="badge bg-warning">Pending</span></td>
+                {% elif ticket.ticket_status == 'Completed' %}
+                <td><span class="badge bg-primary">Completed</span></td>
+                {% endif %}
+        <!-- <td>{{ ticket.start_point }}</td> -->
+        <td class="primary">
+            <a href="{% url 'tickets:ticket_details' ticket.pk %}">Details</a>
+          </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+
+
+{% endblock %}

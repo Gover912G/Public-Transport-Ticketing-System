@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from.models import Ticket
 from .forms import UpdateTicketForm, TicketForm
+from Users.models import User
 
 
 
@@ -12,11 +13,13 @@ from .forms import UpdateTicketForm, TicketForm
 @login_required
 def ticket_details(request, pk):
     ticket = Ticket.objects.get(pk=pk)
+    t = User.objects.get(username=ticket.created_by)
+    tickets_per_user = t.created_by.all()
 
     
-    context = {'ticket':ticket}
+    context = {'ticket':ticket, 'tickets_per_user': tickets_per_user}
 
-    return render(request, './main/mytickets.html', context)
+    return render(request, './main/tickets_details.html', context)
 
 
 
@@ -24,7 +27,7 @@ def ticket_details(request, pk):
 def my_tickets(request):
     tickets = Ticket.objects.filter(created_by=request.user)
     context = {'tickets': tickets}
-    return render(request, './main/mytickets.html', context)
+    return render(request, './main/tickets_details.html', context)
 
 @login_required
 # booking a ticket
@@ -36,12 +39,15 @@ def book_ticket(request):
             var.created_by = request.user
             var.ticket_status = 'Pending'
             var.save()
+            print("Form is valid")
 
             messages.info(request, 'Ticket booked successfully.')
-            return redirect('mytickets')
+            return redirect('tickets:mytickets')
         else:
+            print("Form is not valid")
+            print(form.errors)
             messages.warning(request, 'Something went wrong')
-            return redirect('bookTicket')
+            return redirect('main:home')
         
     else:
         form = TicketForm()
@@ -58,14 +64,14 @@ def book_ticket(request):
 @login_required
 # booking a ticket
 def update_ticket(request, pk):
-    ticket = Ticket.objects.get(pl=pk)
+    ticket = Ticket.objects.get(pk=pk)
     if request.method =='POST':
         form = UpdateTicketForm(request.POST, instance = ticket)
         if form.is_valid():
             form.save()
 
             messages.info(request, 'Ticket updated successfully.')
-            return redirect('mytickets')
+            return redirect('tickets:mytickets')
         else:
             messages.warning(request, 'Something went wrong')
             # return redirect('bookTicket')
@@ -81,21 +87,21 @@ def update_ticket(request, pk):
 #view all createdtickets
 
 def All_tickets(request):
-    ticks = Ticket.objects.filter(created_by=request.user)
-    context = {'ticks':ticks}
+    tickets = Ticket.objects.filter(created_by=request.user).order_by('-date_created')
+    context = {'tickets':tickets}
 
-    return render(request, './dash/Tickets.html', context)
-
-
+    return render(request, './main/all_tickets.html', context)
 
 
+
+# All Tickets that have been booked by customers to be viewed by admin
 def Booked_tickets(request):
     tickets = Ticket.objects.filter(ticket_status=Pending)
     context = {'tickets':'tickets'}
 
     return render(request, 'dash/booked_tickets.html', context)
 
-
+# view for accepting the ticket(scan)
 def Accept_ticket(request,pk):
     ticket = Ticket.objects.get(pk=pk)
     ticket.created_by = request.user
@@ -104,8 +110,8 @@ def Accept_ticket(request,pk):
     ticket.save()
     
 
-    messages.info(request, 'Ticket accepted, enjoy the ride')
-    return redirect('dashboard')
+    messages.info(request, 'Ticket accepted,')
+    return redirect('dash/accept_ticket.html')
 
 
 
@@ -121,12 +127,14 @@ def Close_ticket(request,pk):
     messages.info(request, 'Ticket Resolved, Thank you for choosing us')
     return redirect('dashboard')
 
+# tickets that a conductor has received but not yet resolved
 def workspace(request):
-    tickets = Ticket.objects.filter(created_by=request.user, is_resolved=False)
+    tickets = Ticket.objects.filter(accepted_by=request.user, is_resolved=False)
     context = {'tickets':'tickets'}
 
-    return render(request, 'workspace.html', context)
+    return render(request, 'dash/workspace.html', context)
 
+# tickets that a conductor has received and are resolved
 
 def All_closed_tickets(request):
     tickets = Ticket.objects.filter(created_by= request.user, is_resolved=True)
