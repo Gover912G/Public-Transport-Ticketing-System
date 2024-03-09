@@ -44,7 +44,8 @@
             <div class="col"><b>Received by: </b>{{ ticket.accepted_by}}</div>
           </div>
 
-          <div id="qrcode"></div>
+          <!-- <div id="qrcode"></div> -->
+          <div><img src="/media/{{ ticket.qr_code }}" alt=""></div>
 
           <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
         </div>

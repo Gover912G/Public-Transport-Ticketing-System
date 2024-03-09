@@ -47,7 +47,7 @@ class Ticket(models.Model):
     def save(self, *args, **kwargs):
         qr = qrcode.QRCode(
             version=1,
-            box_size=10,
+            box_size=6,
             border=5
         )
         data = f'Ticket Number: {self.ticket_number}\nRoute: {self.route.route_name}\nCreated by: {self.created_by.username}'
