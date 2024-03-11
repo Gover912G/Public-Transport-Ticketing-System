@@ -19,10 +19,17 @@ from django.template.backends import django
 from django.urls import path,include
 from django.conf.urls.static import static
 from django.conf import settings
+from rest_framework.routers import DefaultRouter
+from Tickets.views import TicketViewSet
+
+
+router = DefaultRouter()
+router.register(r'tickets', TicketViewSet)
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include(router.urls)),
     path('', include('Main_ticketing_system.urls')),
     path('tickets', include('Tickets.urls')),
     path('users', include('Users.urls')),

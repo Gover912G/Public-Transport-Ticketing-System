@@ -6,7 +6,7 @@ from io import BytesIO
 from django.core.files import File
 from PIL import Image, ImageDraw
 
-# Create your models here.
+from rest_framework import serializers, viewsets
 
 class Stage(models.Model):
     stage_name = models.CharField(max_length=100)
@@ -45,12 +45,19 @@ class Ticket(models.Model):
         return str(self.route)
 
     def save(self, *args, **kwargs):
+        from .serializers import TicketSerializer  # Import inside the method
         qr = qrcode.QRCode(
             version=1,
-            box_size=6,
+            box_size=4,
             border=5
         )
-        data = f'Ticket Number: {self.ticket_number}\nRoute: {self.route.route_name}\nCreated by: {self.created_by.username}'
+        data = f'Ticket Number: {self.ticket_number}\nRoute: {self.route.route_name}\nCreated by: {self.created_by.username}\nStart point: {self.start_point}\nStop point: {self.stop_point}'
+        
+        serializer = TicketSerializer(instance=self)
+        serialized_data = serializer.data
+        for key, value in serialized_data.items():
+            data += f'\n{key}: {value}'
+
         qr.add_data(data)
         qr.make(fit=True)
 
@@ -66,3 +73,13 @@ class Ticket(models.Model):
         self.qr_code.save(filename, file, save=False)
 
         super().save(*args, **kwargs)
+
+class TicketSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ticket
+        fields = '__all__'
+
+class TicketViewSet(viewsets.ModelViewSet):
+    queryset = Ticket.objects.all()
+    serializer_class = TicketSerializer
+

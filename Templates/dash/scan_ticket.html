@@ -1,0 +1,41 @@
+{% extends 'dash/master.html' %}
+<!-- {% load static %} -->
+{% block head %}
+<title>{% block title %}scan_ticket{% endblock %}</title>
+
+{% endblock %} {% block content %}
+  <h1>Scan Ticket</h1>
+  
+  <form method="post" action="{% url 'tickets:scan_ticket' %}">
+    {% csrf_token %}
+    <label for="scanned_code">Scan QR Code:</label>
+    <input type="text" id="scanned_code" name="scanned_code" required>
+    <button type="submit">Accept Ticket</button>
+  </form>
+  
+  <!-- Display the video feed for the camera -->
+  <video id="preview" style="width:100%;"></video>
+  
+  <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+  <script>
+    // Initialize the camera scanner
+    let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+
+    // Handle QR code scan
+    scanner.addListener('scan', function (content) {
+      // Populate the scanned code input field
+      document.getElementById('scanned_code').value = content;
+    });
+
+    // Start scanning
+    Instascan.Camera.getCameras().then(function (cameras) {
+      if (cameras.length > 0) {
+        scanner.start(cameras[0]);
+      } else {
+        console.error('No cameras found.');
+      }
+    }).catch(function (e) {
+      console.error(e);
+    });
+  </script>
+{% endblock %}

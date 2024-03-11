@@ -6,8 +6,16 @@ from django.contrib.auth.decorators import login_required
 from.models import Ticket
 from .forms import UpdateTicketForm, TicketForm
 from Users.models import User
+from .models import Ticket
 
 
+from rest_framework import viewsets
+from .serializers import TicketSerializer
+from .models import Ticket
+
+class TicketViewSet(viewsets.ModelViewSet):
+    queryset = Ticket.objects.all()
+    serializer_class = TicketSerializer
 
 # Create your views here.
 
@@ -119,6 +127,24 @@ def Accept_ticket(request,pk):
     return redirect('tickets:workspace')
 
 
+def scan_ticket(request):
+    if request.method == 'POST':
+        scanned_code = request.POST.get('scanned_code')
+        try:
+            ticket = Ticket.objects.get(ticket_number=scanned_code)
+            if ticket.ticket_status == 'Pending':
+                ticket.accepted_by = request.user
+                ticket.ticket_status = 'Active'
+                ticket.accepted_date = datetime.datetime.now()
+                ticket.save()
+                messages.success(request, 'Ticket accepted')
+                return redirect('tickets:workspace')
+            else:
+                messages.error(request, 'Ticket has already been accepted or completed')
+        except Ticket.DoesNotExist:
+            messages.error(request, 'Ticket not found')
+
+    return render(request, 'dash/scan_ticket.html')
 
 
 def Close_ticket(request,pk):
