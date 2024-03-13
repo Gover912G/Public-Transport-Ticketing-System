@@ -45,7 +45,10 @@
 
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
-    {% block head %}{% endblock %}
+    {% block head %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    
+    {% endblock %}
   </head>
 
   <body>

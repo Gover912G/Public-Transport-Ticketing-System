@@ -4,10 +4,14 @@
 <!-- <link rel="stylesheet" href="{% static 'css/Ticket_booking.css' %}" />
 
     <script defer src="{% static 'js/validation.js' %}"></script> -->
+<title>{% block title %}sign_uo{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+
+
 
 {% endblock %} {% block main %}
 
-<div class="reg_container">
+<div class="container container-sm w-50">
   {% if form.errors %}
   <div class="alert alert-danger">
     <strong>Error!</strong> Please correct the following errors:
@@ -22,19 +26,22 @@
   <form method="post">
     {% csrf_token %}
     <h1>Registration</h1>
-    <div class="input-control">
-      <label for="email">Email</label>
-      {% render_field form.email %}
-      <!-- <input type="text" id="email" name="email" /> -->
-      <div class="error"></div>
+    <div class="row">
+      <div class="input-control col">
+        <label for="email">Email</label>
+        {% render_field form.email class="form-control-sm" id="email" %}
+        <!-- <input type="text" id="email" name="email" /> -->
+        <div class="error"></div>
+      </div>
+  
+      <div class="input-control col">
+        <label for="username">Username</label>
+        {% render_field form.username class="form-control-sm" id="username" %}
+        <!-- <input type="text" id="username" name="username" /> -->
+        <div class="error"></div>
+      </div>
     </div>
 
-    <div class="input-control">
-      <label for="username">Username</label>
-      {% render_field form.username %}
-      <!-- <input type="text" id="username" name="username" /> -->
-      <div class="error"></div>
-    </div>
 
     <!-- <div class="input-control">
           <label for="phone">Phone Number</label>
@@ -44,17 +51,17 @@
     <div class="input-control">
       <label for="password">Password</label>
       <!-- <input type="password" id="password" name="password" /> -->
-      {% render_field form.password1 %}
+      {% render_field form.password1 class="form-control-sm" id="password" %}
       <div class="error"></div>
     </div>
     <div class="input-control">
       <label for="password2">Confirm Password</label>
-      {% render_field form.password2 %}
+      {% render_field form.password2 class="form-control-sm" id="password2" %}
 
       <!-- <input type="password" id="password2" name="password2" /> -->
       <div class="error"></div>
     </div>
-    <button>Sign Up</button>
+    <button type="button" class="btn btn-primary">Sign Up</button>
   </form>
   <!-- <div class="signup-link">
         don't have an account?<a href="SignUp.html">Sign up</a>
