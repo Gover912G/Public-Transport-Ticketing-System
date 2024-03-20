@@ -2,6 +2,12 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from Users.form import PassengerRegistrationForm
 from django.contrib.auth import authenticate, login, logout
+from Users.models import User
+
+
+from django.core.mail import send_mail
+from django.core.mail import EmailMessage
+from Ticketing_system.settings import EMAIL_HOST_USER  
 
 # Register a passenger
 
@@ -14,6 +20,17 @@ def register_passenger(request):
             # print(form.errors)
             var.save()
             messages.info(request, 'Your account has been successfully created. Login to Continue')
+            
+
+            # user = var.user
+            # sending a welcoming mail
+            # subject = 'Welcome to Dondaa cashless fare collection'
+            # message = 'Hello ' + User.username + '!! \n  Thank you for visitng our services \n we have also sent you a confirmation, please confirm your email address to activate your account. \n\n Thank you'
+            # from_email = settings.EMAIL_HOST_USER
+            # to_list = [User.email]
+            # send_mail(subject, message, from_email, to_list, fail_silently=True)
+
+
             return redirect('user:login')
         else:
             messages.warning(request, 'something Went Wrong!!!! please check your input')

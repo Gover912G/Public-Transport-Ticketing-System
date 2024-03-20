@@ -12,21 +12,42 @@
 {% endblock %} {% block main %}
 
 <div class="container container-sm w-50">
-  {% if form.errors %}
-  <div class="alert alert-danger">
-    <strong>Error!</strong> Please correct the following errors:
-    <ul>
-      {% for field, errors in form.errors.items %} {% for error in errors %}
-      <li>{{ field }}: {{ error }}</li>
-      {% endfor %} {% endfor %}
-    </ul>
-  </div>
-  {% endif %}
+
+
+
 
   <form method="post">
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{message.tags}} mx-auto" role="alert">
+      {{message}}
+    </div>
+    {% endfor %} {% endif %}
     {% csrf_token %}
     <h1>Registration</h1>
     <div class="row">
+      <div class="input-control col">
+        <label for="Fname">First name</label>
+        {% render_field form.first_name class="form-control-sm" id="Fname" %}
+        <!-- <input type="text" id="email" name="email" /> -->
+        <div class="error"></div>
+      </div>
+  
+      <div class="input-control col">
+        <label for="Lname">Last Name</label>
+        {% render_field form.last_name class="form-control-sm" id="Lname" %}
+        <!-- <input type="text" id="username" name="username" /> -->
+        <div class="error"></div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="input-control col">
+        <label for="username">Username</label>
+        {% render_field form.username class="form-control-sm" id="username" %}
+        <!-- <input type="text" id="username" name="username" /> -->
+        <div class="error"></div>
+      </div>
+
       <div class="input-control col">
         <label for="email">Email</label>
         {% render_field form.email class="form-control-sm" id="email" %}
@@ -34,20 +55,15 @@
         <div class="error"></div>
       </div>
   
-      <div class="input-control col">
-        <label for="username">Username</label>
-        {% render_field form.username class="form-control-sm" id="username" %}
-        <!-- <input type="text" id="username" name="username" /> -->
-        <div class="error"></div>
-      </div>
+      
     </div>
 
 
-    <!-- <div class="input-control">
+    <div class="input-control">
           <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" name="phone" />
+          <input type="tel" id="phone" name="phone_number" />
           <div class="error"></div>
-        </div> -->
+        </div>
     <div class="input-control">
       <label for="password">Password</label>
       <!-- <input type="password" id="password" name="password" /> -->
@@ -61,7 +77,7 @@
       <!-- <input type="password" id="password2" name="password2" /> -->
       <div class="error"></div>
     </div>
-    <button type="button" class="btn btn-primary">Sign Up</button>
+    <button type="submit" class="btn btn-primary">Sign Up</button>
   </form>
   <!-- <div class="signup-link">
         don't have an account?<a href="SignUp.html">Sign up</a>
