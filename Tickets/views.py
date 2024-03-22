@@ -13,6 +13,9 @@ from rest_framework import viewsets
 from .serializers import TicketSerializer
 from .models import Ticket
 
+
+import requests
+from .credentials import MpesaPassword, MpesaAccessToken
 class TicketViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
@@ -114,17 +117,62 @@ def Booked_tickets(request):
 
     return render(request, './dash/booked_tickets.html', context)
 
-# view for accepting the ticket(scan)
-def Accept_ticket(request,pk):
+
+def initiate_stk_payment(amount, phone):
+    access_token = MpesaAccessToken.validated_access_token
+    api_url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest'
+    headers = {"Authorization": "Bearer %s" % access_token}
+    request_data = {
+        "BusinessShortCode": MpesaPassword.short_code,
+        "Password": MpesaPassword.decoded,
+        "Timestamp": MpesaPassword.pay_time,
+        "TransactionType": "CustomerPayBillOnline",
+        "Amount": amount,
+        "PartyA": phone,
+        "PartyB": MpesaPassword.short_code,
+        "PhoneNumber": phone,
+        "CallBackURL": "https://sandbox.safaricom.co.ke/mpesa/", 
+        "AccountReference": "YourCompany",  # Customize as needed
+        "TransactionDesc": "Payment for Ticket"  # Customize as needed
+    }
+    response = requests.post(api_url, json=request_data, headers=headers)
+    return response.json()
+
+def Accept_ticket(request, pk):
     ticket = Ticket.objects.get(pk=pk)
     ticket.accepted_by = request.user
     ticket.ticket_status = 'Active'
     ticket.accepted_date = datetime.datetime.now()
-    ticket.save()
+
+    # Initiate STK payment
+    amount = ticket.amount
+    phone = ticket.created_by.phone_number
+    payment_response = initiate_stk_payment(amount, phone)
+
+    if 'MerchantRequestID' in payment_response:
+        # Payment initiation successful
+        ticket.is_resolved = False
+        ticket.save()
+        messages.info(request, 'Ticket accepted, payment initiated.')
+    else:
+        # Payment initiation failed
+        messages.error(request, 'Failed to initiate payment.')
+
+    return redirect('tickets:workspace')
+
+# view for accepting the ticket(scan)
+# def Accept_ticket(request,pk):
+#     ticket = Ticket.objects.get(pk=pk)
+#     ticket.accepted_by = request.user
+#     ticket.ticket_status = 'Active'
+#     ticket.accepted_date = datetime.datetime.now()
+#     if stk():
+#         ticket.is_resolved= False
+#     ticket.save()
     
 
-    messages.info(request, 'Ticket accepted,')
-    return redirect('tickets:workspace')
+#     messages.info(request, 'Ticket accepted,')
+#     return redirect('tickets:workspace')
 
 
 def scan_ticket(request):
@@ -146,6 +194,31 @@ def scan_ticket(request):
 
     return render(request, 'dash/scan_ticket.html')
 
+
+
+# def Stk(request):
+#     if request.method =="POST":
+#         phone = request.POST['name']
+#         access_token = MpesaAccessToken.validated_access_token
+#         api_URL = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest'
+#         headers = {"Authorization": "Bearer %s" % access_token}
+#         request = {
+#                 "BusinessShortCode": MpesaPassword.short_code,
+#                 "Password": MpesaPassword.decoded,
+#                 "Timestamp": MpesaPassword.pay_time,
+#                 "TransactionType": "CustomerPayBillOnline",
+#                 "Amount": ticket.amount,
+#                 "PartyA": phone,
+#                 "PartyB": MpesaPassword.short_code,
+#                 "PhoneNumber": phone,
+#                 "CallBackURL": "https://sandbox.safaricom.co.ke/mpesa/",
+#                 "AccountReference": "Dondaa Fare Services",
+#                 "TransactionDesc": "Transport Charges"
+#             }
+#         response = requests.post(api_url, json=request, headers=headers)
+
+
+#     return HttpResponse("success")
 
 def Close_ticket(request,pk):
     ticket = Ticket.objects.get(pk=pk)
