@@ -7,10 +7,12 @@ from datetime import datetime
 import base64
 
 class Credentials:
-    consumer_key = 'VAHyaARn9zLusRyrurFxlgJiatxYRAdOrGLWDpjbGG6GZGuD'
-    consumer_secret = 'cGPnd9YjEHJl1A1byxGGkMAPJKMoQngKKHBvY42WGLGuDEP0z2Qy1qzPWvp3BC9m'
+    consumer_key = 'ahly43tjOUkoWvVqOy05ieudJ5MKADV39GOZI9CQZGMPCkCh'
+    consumer_secret = 'oPTsjG2tQAAlngX4fCWEBxqpUbjnwVU49usYAuJ6B0xVu3uIN5qvCUaYYCgyeGf1'
     passkey = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'
-    api_URL = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest'
+    # api_URL = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest'
+    api_URL = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
+
 
 class MpesaAccessToken:
     t = requests.get(Credentials.api_URL, auth=HTTPBasicAuth(Credentials.consumer_key, Credentials.consumer_secret))

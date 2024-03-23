@@ -9,4 +9,4 @@ class PassengerRegistrationForm(UserCreationForm):
     phone_number = forms.CharField(max_length=15)
     class Meta:
         model = User
-        fields = ['username', 'email','phone_number', 'password1', 'password2']
+        fields = ["first_name", "last_name",'username', 'email','phone_number', 'password1', 'password2']

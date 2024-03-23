@@ -119,7 +119,7 @@ def Booked_tickets(request):
 
 
 def initiate_stk_payment(amount, phone):
-    access_token = MpesaAccessToken.validated_access_token
+    access_token = MpesaAccessToken.validated_mpesa_access_token
     api_url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest'
     headers = {"Authorization": "Bearer %s" % access_token}
     request_data = {
@@ -151,7 +151,7 @@ def Accept_ticket(request, pk):
 
     if 'MerchantRequestID' in payment_response:
         # Payment initiation successful
-        ticket.is_resolved = False
+        ticket.is_resolved = True
         ticket.save()
         messages.info(request, 'Ticket accepted, payment initiated.')
     else:
