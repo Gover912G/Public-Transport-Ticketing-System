@@ -24,6 +24,7 @@ class TicketViewSet(viewsets.ModelViewSet):
 
 @login_required
 def ticket_details(request, pk):
+    
     ticket = Ticket.objects.get(pk=pk)
     t = User.objects.get(username=ticket.created_by)
     tickets_per_user = t.created_by.all()

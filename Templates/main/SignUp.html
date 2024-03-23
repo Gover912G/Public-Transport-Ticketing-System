@@ -60,8 +60,10 @@
 
 
     <div class="input-control">
-          <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" name="phone_number" />
+          <label for="phone_number">Phone Number</label>
+        {% render_field form.phone_number class="form-control-sm" id="phone_number" value="254" %}
+
+          <!-- <input type="text" id="phone_number" name="phone_number" value="254" /> -->
           <div class="error"></div>
         </div>
     <div class="input-control">
