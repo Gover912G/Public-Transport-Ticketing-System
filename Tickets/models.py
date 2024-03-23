@@ -40,6 +40,7 @@ class Ticket(models.Model):
     start_point = models.ForeignKey(Stage, related_name='start_point', on_delete=models.CASCADE)
     stop_point = models.ForeignKey(Stage, related_name='stop_point', on_delete=models.CASCADE)
     amount = models.IntegerField(default=1)
+    phone_number = models.CharField(max_length=15, blank=True, default=254740488461)
     qr_code = models.ImageField(upload_to='qr_codes', blank=True)
 
     def __str__(self):

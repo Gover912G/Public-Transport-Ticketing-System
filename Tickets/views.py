@@ -148,6 +148,11 @@ def Accept_ticket(request, pk):
     # Initiate STK payment
     amount = ticket.amount
     phone = ticket.created_by.phone_number
+
+    # if ticket.phone_number == '':
+    #     phone = ticket.created_by.phone_number
+    # else:
+    #     phone = ticket.phone_number
     payment_response = initiate_stk_payment(amount, phone)
 
     if 'MerchantRequestID' in payment_response:
