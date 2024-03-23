@@ -43,7 +43,11 @@ class Ticket(models.Model):
     qr_code = models.ImageField(upload_to='qr_codes', blank=True)
 
     def __str__(self):
-        return str(self.route)
+        # return str(self.route)
+        return str(self.start_point) + " to " + str(self.stop_point)
+
+        # return str(self.start_point + "to " +self.stop_point)
+
 
     def save(self, *args, **kwargs):
         from .serializers import TicketSerializer  # Import inside the method

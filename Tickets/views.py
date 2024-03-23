@@ -160,20 +160,8 @@ def Accept_ticket(request, pk):
 
     return redirect('tickets:workspace')
 
-# view for accepting the ticket(scan)
-# def Accept_ticket(request,pk):
-#     ticket = Ticket.objects.get(pk=pk)
-#     ticket.accepted_by = request.user
-#     ticket.ticket_status = 'Active'
-#     ticket.accepted_date = datetime.datetime.now()
-#     if stk():
-#         ticket.is_resolved= False
-#     ticket.save()
-    
 
-#     messages.info(request, 'Ticket accepted,')
-#     return redirect('tickets:workspace')
-
+# Scanning the ticket for acceptance
 
 def scan_ticket(request):
     if request.method == 'POST':
@@ -184,8 +172,21 @@ def scan_ticket(request):
                 ticket.accepted_by = request.user
                 ticket.ticket_status = 'Active'
                 ticket.accepted_date = datetime.datetime.now()
-                ticket.save()
-                messages.success(request, 'Ticket accepted')
+
+                amount = ticket.amount
+                phone = ticket.created_by.phone_number
+                payment_response = initiate_stk_payment(amount, phone)
+
+                if 'MerchantRequestID' in payment_response:
+                    # Payment initiation successful
+                    ticket.is_resolved = True
+                    ticket.save()
+                    messages.info(request, 'Ticket accepted, payment initiated.')
+                else:
+                    # Payment initiation failed
+                    messages.error(request, 'Failed to initiate payment.')
+
+                
                 return redirect('tickets:workspace')
             else:
                 messages.error(request, 'Ticket has already been accepted or completed')
@@ -195,45 +196,20 @@ def scan_ticket(request):
     return render(request, 'dash/scan_ticket.html')
 
 
-
-# def Stk(request):
-#     if request.method =="POST":
-#         phone = request.POST['name']
-#         access_token = MpesaAccessToken.validated_access_token
-#         api_URL = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest'
-#         headers = {"Authorization": "Bearer %s" % access_token}
-#         request = {
-#                 "BusinessShortCode": MpesaPassword.short_code,
-#                 "Password": MpesaPassword.decoded,
-#                 "Timestamp": MpesaPassword.pay_time,
-#                 "TransactionType": "CustomerPayBillOnline",
-#                 "Amount": ticket.amount,
-#                 "PartyA": phone,
-#                 "PartyB": MpesaPassword.short_code,
-#                 "PhoneNumber": phone,
-#                 "CallBackURL": "https://sandbox.safaricom.co.ke/mpesa/",
-#                 "AccountReference": "Dondaa Fare Services",
-#                 "TransactionDesc": "Transport Charges"
-#             }
-#         response = requests.post(api_url, json=request, headers=headers)
-
-
-#     return HttpResponse("success")
-
 def Close_ticket(request,pk):
     ticket = Ticket.objects.get(pk=pk)
     ticket.ticket_status = 'Completed'
     ticket.is_resolved = True
-    ticket.accepted_date = datetime.datetime.now()
+    ticket.closed_date = datetime.datetime.now()
     ticket.save()
     
 
     messages.info(request, 'Ticket Resolved, Thank you for choosing us')
-    return redirect('dashboard')
+    return redirect('tickets:workspace')
 
 # tickets that a conductor has received but not yet resolved
 def workspace(request):
-    tickets = Ticket.objects.filter(accepted_by=request.user, is_resolved=False)
+    tickets = Ticket.objects.filter(accepted_by=request.user, is_resolved=True)
     context = {'tickets':tickets}
 
     return render(request, 'dash/workspace.html', context)

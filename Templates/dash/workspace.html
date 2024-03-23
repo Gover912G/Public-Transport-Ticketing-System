@@ -69,7 +69,13 @@
         </td>
         {% endif %}
         <td class="primary">
-          <a href="{% url 'tickets:ticket_details' ticket.pk %}">Details</a>
+      
+      {% if  ticket.ticket_status == 'Active' %}
+          <a href="{% url 'tickets:Close_ticket' ticket.pk %}">Close</a>
+      {% else %}
+      <a href="{% url 'tickets:ticket_details' ticket.pk %}">Details</a>
+
+      {% endif %}
         </td>
       </tr>
       {% endfor %}

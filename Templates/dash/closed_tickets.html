@@ -21,14 +21,14 @@
       </tr>
     </thead>
     <tbody>
-      {% for ticket in tickets %}
+      {% for x in tickets %}
       <tr>
-        <td>{{ ticket.created_by }}</td>
-        <td>{{ ticket.ticket_number }}</td>
-        <td>{{ticket.start_point}}</td>
-        <td>{{ticket.stop_point}}</td>
-        <td>{{ticket.created_by}}</td>
-        <td>{{ticket.date_created}}</td>
+        <td>{{ x.created_by }}</td>
+        <td>{{ x.ticket_number }}</td>
+        <td>{{x.start_point}}</td>
+        <td>{{x.stop_point}}</td>
+        <td>{{x.created_by}}</td>
+        <td>{{x.date_created}}</td>
         {% if ticket.ticket_status == 'Active' %}
         <td>
           <span
