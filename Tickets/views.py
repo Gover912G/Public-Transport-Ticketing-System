@@ -105,7 +105,11 @@ def update_ticket(request, pk):
 
 def All_tickets(request):
     tickets = Ticket.objects.filter(created_by=request.user).order_by('-date_created')
-    context = {'tickets':tickets}
+    context = {
+        'tickets':tickets,
+        'nav':'all_tickets'
+
+        }
 
     return render(request, './main/all_tickets.html', context)
 
@@ -114,7 +118,9 @@ def All_tickets(request):
 # All Tickets that have been booked by customers to be viewed by admin
 def Booked_tickets(request):
     tickets = Ticket.objects.filter(ticket_status='Pending')
-    context = {'tickets':tickets}
+    context = {
+        'nav':'booked_tickets',
+        'tickets':tickets}
 
     return render(request, './dash/booked_tickets.html', context)
 
@@ -200,7 +206,7 @@ def scan_ticket(request):
         except Ticket.DoesNotExist:
             messages.error(request, 'Ticket not found')
 
-    return render(request, 'dash/scan_ticket.html')
+    return render(request, 'dash/scan_ticket.html', context={'nav':'scan'})
 
 
 def Close_ticket(request,pk):
@@ -217,7 +223,11 @@ def Close_ticket(request,pk):
 # tickets that a conductor has received but not yet resolved
 def workspace(request):
     tickets = Ticket.objects.filter(accepted_by=request.user, is_resolved=True)
-    context = {'tickets':tickets}
+    context = {
+        'tickets':tickets,
+        'nav':'workspace'
+        
+        }
 
     return render(request, 'dash/workspace.html', context)
 
@@ -225,5 +235,8 @@ def workspace(request):
 
 def All_closed_tickets(request):
     tickets = Ticket.objects.filter(created_by= request.user, is_resolved=True)
-    context = {'tickets':'tickets'}
+    context = {
+        'tickets':tickets,
+        'nav':'closed_tickets'
+    }
     return render(request, 'dash/closed_tickets.html', context)

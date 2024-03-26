@@ -21,14 +21,14 @@
       </tr>
     </thead>
     <tbody>
-      {% for x in tickets %}
+      {% for ticket in tickets %}
       <tr>
-        <td>{{ x.created_by }}</td>
-        <td>{{ x.ticket_number }}</td>
-        <td>{{x.start_point}}</td>
-        <td>{{x.stop_point}}</td>
-        <td>{{x.created_by}}</td>
-        <td>{{x.date_created}}</td>
+        <td>{{ ticket.created_by }}</td>
+        <td>{{ ticket.ticket_number }}</td>
+        <td>{{ticket.start_point}}</td>
+        <td>{{ticket.stop_point}}</td>
+        <td>{{ticket.created_by}}</td>
+        <td>{{ticket.date_created}}</td>
         {% if ticket.ticket_status == 'Active' %}
         <td>
           <span
@@ -69,7 +69,7 @@
         </td>
         {% endif %}
         <td class="primary">
-          <a href="#">Details</a>
+          <a href="{% url 'tickets:ticket_details' ticket.pk %}">Details</a>
         </td>
       </tr>
       {% endfor %}

@@ -38,29 +38,29 @@
           </div>
         </div>
         <div class="sidebar">
-          <a href="{% url 'dashboard:dash' %}">
+          <a href="{% url 'dashboard:dash' %}" class="{% if nav == 'dash' %}active{% endif %}">
             <span class="material-symbols-outlined"> grid_view </span>
             <h3>Dashboard</h3>
           </a>
-          <a href="{% url 'tickets:All_tickets' %}" class="active">
+          <a href="{% url 'tickets:All_tickets' %}" class="{% if nav == 'all_tickets' %}active{% endif %}">
             <span class="material-symbols-outlined"> groups </span>
             <h3>All Tickets</h3>
           </a>
-          <a href="{% url 'tickets:scan_ticket' %}">
+          <a href="{% url 'tickets:scan_ticket' %}" class="{% if nav == 'scan' %}active{% endif %}">
             <span class="material-symbols-outlined"> qr_code_scanner </span>
             <h3>Scan Ticket</h3>
           </a>
-          <a href="{% url 'tickets:workspace' %}">
+          <a href="{% url 'tickets:workspace' %}" class="{% if nav == 'workspace' %}active{% endif %}">
             <span class="material-symbols-outlined"> workspaces </span>
             <h3>Workspace</h3>
           </a>
-          <a href="{% url 'tickets:Booked_tickets' %}">
+          <a href="{% url 'tickets:Booked_tickets' %}" class="{% if nav == 'booked_tickets' %}active{% endif %}">
             <span class="material-symbols-outlined">
               assignment_turned_in
               </span>
             <h3>Booked Tickets</h3>
           </a>
-          <a href="{% url 'tickets:All_closed_tickets' %}">
+          <a href="{% url 'tickets:All_closed_tickets' %}" class="{% if nav == 'closed_tickets' %}active{% endif %}">
             <span class="material-symbols-outlined">
               done_outline
               </span>
