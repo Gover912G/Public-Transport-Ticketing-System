@@ -133,7 +133,7 @@ def initiate_stk_payment(amount, phone):
         "PartyB": MpesaPassword.short_code,
         "PhoneNumber": phone,
         "CallBackURL": "https://sandbox.safaricom.co.ke/mpesa/", 
-        "AccountReference": "YourCompany",  # Customize as needed
+        "AccountReference": "Dondaa fare services",  # Customize as needed
         "TransactionDesc": "Payment for Ticket"  # Customize as needed
     }
     response = requests.post(api_url, json=request_data, headers=headers)
@@ -178,19 +178,20 @@ def scan_ticket(request):
                 ticket.accepted_by = request.user
                 ticket.ticket_status = 'Active'
                 ticket.accepted_date = datetime.datetime.now()
+                ticket.is_resolved = True
+                ticket.save()
 
                 amount = ticket.amount
                 phone = ticket.created_by.phone_number
                 payment_response = initiate_stk_payment(amount, phone)
 
-                if 'MerchantRequestID' in payment_response:
-                    # Payment initiation successful
-                    ticket.is_resolved = True
-                    ticket.save()
-                    messages.info(request, 'Ticket accepted, payment initiated.')
-                else:
-                    # Payment initiation failed
-                    messages.error(request, 'Failed to initiate payment.')
+                # if 'MerchantRequestID' in payment_response:
+                #     # Payment initiation successful
+                    
+                #     messages.info(request, 'Ticket accepted, payment initiated.')
+                # else:
+                #     # Payment initiation failed
+                #     messages.error(request, 'Failed to initiate payment.')
 
                 
                 return redirect('tickets:workspace')
