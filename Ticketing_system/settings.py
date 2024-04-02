@@ -184,4 +184,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'ngigipaul912@gmail.com'
 EMAIL_HOST_PASSWORD = 'zjwm qbpm xnxn xwqc'
 EMAIL_USE_TLS = True
-EMAIL_USE_SSL = True
+EMAIL_USE_SSL = False
