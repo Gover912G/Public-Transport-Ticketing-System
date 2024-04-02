@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!9hihswo4o-&mw79xss#1-wv@ds*qz&q*ai0csl-2-p(chn38%'
+# SECRET_KEY = 'django-insecure-!9hihswo4o-&mw79xss#1-wv@ds*qz&q*ai0csl-2-p(chn38%'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-!9hihswo4o-&mw79xss#1-wv@ds*qz&q*ai0csl-2-p(chn38%')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True')=="True"
 
 # ALLOWED_HOSTS = ['.vercel.app','now.sh','127.0.0.1','localhost']
 ALLOWED_HOSTS = ['*']
@@ -92,18 +95,21 @@ WSGI_APPLICATION = 'Ticketing_system.wsgi.application'
 #     }
 # }
 
-
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Public_transport',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '3306',
+if not DEBUG:
+    DATABASES = {
+        "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'Public_transport',
+            'USER': 'root',
+            'PASSWORD': '',
+            'HOST': 'localhost',
+            'PORT': '3306',
+        }
+    }
 
 
 # Password validation
