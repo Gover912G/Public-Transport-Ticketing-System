@@ -57,8 +57,8 @@ def book_ticket(request):
             messages.info(request, 'Ticket booked successfully.')
             return redirect('tickets:mytickets')
         else:
-            print("Form is not valid")
-            print(form.errors)
+            # print("Form is not valid")
+            # print(form.errors)
             messages.warning(request, 'Something went wrong')
             return redirect('main:home')
         
