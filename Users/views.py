@@ -1,8 +1,8 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from Users.form import PassengerRegistrationForm
+from Users.form import PassengerRegistrationForm,ProfileForm
 from django.contrib.auth import authenticate, login, logout
-from Users.models import User
+from Users.models import User,Profile
 
 
 from django.core.mail import send_mail
@@ -69,18 +69,21 @@ def user_logout(request):
     return redirect('main:home')
 
 
-def update_user(request):
-	if request.user.is_authenticated:
-		current_user = User.objects.get(id=request.user.id)
-		user_form = UpdateUserForm(request.POST or None, instance=current_user)
 
-		if user_form.is_valid():
-			user_form.save()
+def Profile(request):
+    user = request.user.profile
+    form=ProfileForm(instance=user)
 
-			login(request, current_user)
-			messages.success(request, "User Has Been Updated!!")
-			return redirect('home')
-		return render(request, "update_user.html", {'user_form':user_form})
-	else:
-		messages.success(request, "You Must Be Logged In To Access That Page!!")
-		return redirect('home')
+    if request.method == 'POST':
+        form=ProfileForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            username=request.user.username
+            messages.success(request, f'{ username }, profile update successful')
+    else:
+        form=ProfileForm(instance=request.user.profile)
+    context = {'form':form}
+    return render(request, 'profile/profile.html',context)
+
+def password_reset(request):
+    return render(request, 'profile/reset_password.html')

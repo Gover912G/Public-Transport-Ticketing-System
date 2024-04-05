@@ -70,7 +70,7 @@
             <span class="material-symbols-outlined"> route </span>
             <h3>Routes</h3>
           </a>
-          <a href="#">
+          <a href="{% url 'user:profile' %}">
             <span class="material-symbols-outlined"> settings </span>
             <h3>Settings</h3>
           </a>
@@ -120,7 +120,7 @@
             <small class="text-muted">Admin</small>
           </div>
           <div class="profile-photo">
-            <img src="{% static 'images/testi1.jpg' %}" alt="">
+            <img src="{{request.user.profile.profil_pic.url}}" alt="">
           </div>
         </div>
       </div>

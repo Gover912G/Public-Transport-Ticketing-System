@@ -36,13 +36,14 @@ def ticket_details(request, pk):
 
 
 
-@login_required
+@login_required(login_url = 'user:login')
 def my_tickets(request):
     tickets = Ticket.objects.filter(created_by=request.user)
     context = {'tickets': tickets}
     return render(request, './main/tickets_details.html', context)
 
-@login_required
+
+@login_required(login_url = 'user:login')
 # booking a ticket
 def book_ticket(request):
     if request.method =='POST':

@@ -97,7 +97,7 @@ WSGI_APPLICATION = 'Ticketing_system.wsgi.application'
 
 if not DEBUG:
     DATABASES = {
-        "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+	"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
     }
 else:
     DATABASES = {
@@ -146,18 +146,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-# STATIC_URL = 'static/'
-# STATICFILES_DIRS = [
-#     BASE_DIR / "static",
-#     "/var/www/static/",
-# ]
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    "/var/www/static/",
+]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = BASE_DIR/'assets'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATIC_ROOT = BASE_DIR/'assets'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

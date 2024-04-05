@@ -16,7 +16,7 @@
 
 
 
-  <form method="post" action="#">
+  <form method="post">
     {% if messages %} {% for message in messages %}
     <div class="alert alert-{{message.tags}} mx-auto" role="alert">
       {{message}}
@@ -24,22 +24,22 @@
     {% endfor %} {% endif %}
     {% csrf_token %}
     <h1>Registration</h1>
-    <div class="row">
+    <!-- <div class="row">
       <div class="input-control col">
         <label for="Fname">First name</label>
         {% render_field form.first_name class="form-control-sm" id="Fname" %}
-        <!-- <input type="text" id="email" name="email" /> -->
+        <input type="text" id="email" name="email" />
         <div class="error"></div>
       </div>
   
       <div class="input-control col">
         <label for="Lname">Last Name</label>
         {% render_field form.last_name class="form-control-sm" id="Lname" %}
-        <!-- <input type="text" id="username" name="username" /> -->
+        <input type="text" id="username" name="username" />
         <div class="error"></div>
       </div>
     </div>
-    
+     -->
     <div class="row">
       <div class="input-control col">
         <label for="username">Username</label>
@@ -54,18 +54,14 @@
         <!-- <input type="text" id="email" name="email" /> -->
         <div class="error"></div>
       </div>
-  
-      
     </div>
 
-
+<!-- 
     <div class="input-control">
-          <label for="phone_number">Phone Number</label>
-        {% render_field form.phone_number class="form-control-sm" id="phone_number" value="254" %}
-
-          <!-- <input type="text" id="phone_number" name="phone_number" value="254" /> -->
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone_number" />
           <div class="error"></div>
-        </div>
+        </div> -->
     <div class="input-control">
       <label for="password">Password</label>
       <!-- <input type="password" id="password" name="password" /> -->
@@ -81,9 +77,9 @@
     </div>
     <button type="submit" class="btn btn-primary">Sign Up</button>
   </form>
-  <!-- <div class="signup-link">
-        don't have an account?<a href="SignUp.html">Sign up</a>
-      </div> -->
+  <div class="signup-link">
+        Already have an account?<a href="{% url 'user:login'%}">Login</a>
+      </div>
 </div>
 
 <!-- <script src="{% static 'js/test.js' %}"></script> -->
