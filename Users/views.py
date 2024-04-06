@@ -57,7 +57,7 @@ def user_login(request):
             messages.warning(request, 'Something went wrong please check your inputs!!!')
             return redirect('user:login')
     else:
-        return render(request, 'main/Login.html')
+        return render(request, 'registration/Login.html')
 
     # return render(request, 'Users/Login.html', context)
 
@@ -83,7 +83,4 @@ def Profile(request):
     else:
         form=ProfileForm(instance=request.user.profile)
     context = {'form':form}
-    return render(request, 'profile/profile.html',context)
-
-def password_reset(request):
-    return render(request, 'profile/reset_password.html')
+    return render(request, 'main/profile.html',context)

@@ -14,5 +14,4 @@ def Tickets(request):
 
 
 def scan_ticket(request):
-    
     return render(request, 'dash/scan_ticket.html', {'nav':'tick'})
