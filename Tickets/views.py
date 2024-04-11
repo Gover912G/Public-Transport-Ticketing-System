@@ -152,14 +152,10 @@ def Accept_ticket(request, pk):
     ticket.ticket_status = 'Active'
     ticket.accepted_date = datetime.datetime.now()
 
-    # Initiate STK payment
+  # Initiate STK payment
     amount = ticket.amount
-    phone = ticket.created_by.phone_number
-
-    # if ticket.phone_number == '':
-    #     phone = ticket.created_by.phone_number
-    # else:
-    #     phone = ticket.phone_number
+    phone = ticket.created_by.profile.phone_number
+    
     payment_response = initiate_stk_payment(amount, phone)
 
     if 'MerchantRequestID' in payment_response:
@@ -167,11 +163,12 @@ def Accept_ticket(request, pk):
         ticket.is_resolved = True
         ticket.save()
         messages.info(request, 'Ticket accepted, payment initiated.')
+        return redirect('tickets:workspace')
     else:
         # Payment initiation failed
         messages.error(request, 'Failed to initiate payment.')
 
-    return redirect('tickets:workspace')
+        return redirect('tickets:Booked_tickets')
 
 
 # Scanning the ticket for acceptance
